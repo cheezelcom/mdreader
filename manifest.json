@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "mdREADER",
+  "version": "6.0.0",
+  "description": "Elegant Markdown viewer with dark/light mode, table of contents, and print optimization",
+  "author": "Abricot Labs",
+  "homepage_url": "https://github.com/cheezelcom/mdreader",
+  "permissions": ["activeTab", "storage"],
+  "icons": {
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["file:///*.md", "file:///*.markdown"],
+      "js": ["src/content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
