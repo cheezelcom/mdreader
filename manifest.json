@@ -1,12 +1,11 @@
 {
   "manifest_version": 3,
   "name": "mdREADER",
-  "version": "7.1.0",
-  "description": "Elegant Markdown viewer with dark/light mode, table of contents, and print optimization",
+  "version": "8.3.0",
+  "description": "Lecteur Markdown élégant : thèmes, sommaire, coloration syntaxique, actualisation auto, impression A4.",
   "author": "Abricot Labs",
   "homepage_url": "https://github.com/cheezelcom/mdreader",
   "permissions": [
-    "activeTab",
     "storage"
   ],
   "icons": {
@@ -17,12 +16,31 @@
     {
       "matches": [
         "file:///*.md",
-        "file:///*.markdown"
+        "file:///*.MD",
+        "file:///*.markdown",
+        "file:///*.mdown",
+        "file:///*.mkd",
+        "http://localhost/*.md",
+        "http://127.0.0.1/*.md",
+        "https://raw.githubusercontent.com/*.md"
       ],
       "js": [
-        "src/content.js"
+        "dist/content.js"
       ],
       "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "fonts/*"
+      ],
+      "matches": [
+        "file:///*",
+        "http://localhost/*",
+        "http://127.0.0.1/*",
+        "https://raw.githubusercontent.com/*"
+      ]
     }
   ]
 }

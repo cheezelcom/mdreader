@@ -1,92 +1,50 @@
-# mdREADER
+# mdREADER v8
 
-**Elegant Markdown viewer for Chrome/Brave browsers**
+**Lecteur Markdown élégant pour Chrome / Brave** — ouvrez un `.md`, il s'affiche mis en page.
 
-A browser extension that transforms raw Markdown files into beautifully rendered documents with a modern, customizable interface.
+## Fonctionnalités
 
-![mdREADER Preview](screenshots/preview.png)
+- Rendu **GFM complet** (marked) : tableaux alignés, listes imbriquées/numérotées, tâches, notes de bas de page, alertes `> [!NOTE]`
+- **Coloration syntaxique** (highlight.js) + bouton *Copier* sur chaque bloc de code
+- **Sommaire** auto avec section active, ancres sur les titres (accents gérés, doublons dédoublonnés)
+- **Actualisation automatique** : le rendu se met à jour quand le fichier change (scroll conservé)
+- Thème clair/sombre (suit le système par défaut), réglages mémorisés
+- Option « sauts de ligne » (un retour simple = `<br>`, activée par défaut)
+- **Sécurité** : HTML assaini (DOMPurify), liens `javascript:` bloqués
+- **100 % hors ligne** : polices et bibliothèques embarquées, aucun appel réseau
+- Impression A4 optimisée (mode clair, sans interface)
 
-## ✨ Features
+## Installation
 
-- 🌗 **Dark/Light mode** with persistent preference
-- 📑 **Auto-generated table of contents** with smooth scroll navigation
-- 📊 **Document metadata** (reading time, word count)
-- 📱 **Responsive design** for desktop and mobile
-- 🖨️ **Print optimized** - A4 layout with light mode for grayscale printing
-- ⚡ **Zero dependencies** - Self-contained markdown parser
-- 🎨 **Premium typography** - Newsreader, JetBrains Mono, Instrument Sans
+1. `chrome://extensions` (ou `brave://extensions`) → activer **Mode développeur**
+2. **Charger l'extension non empaquetée** → choisir ce dossier
+3. Dans les détails de l'extension, activer **Autoriser l'accès aux URL de fichier**
 
-## 📦 Installation
+Sont rendus : `file:///*.md|.MD|.markdown|.mdown|.mkd`, `localhost/*.md`, `127.0.0.1/*.md`, `raw.githubusercontent.com/*.md`.
 
-### From source (Developer mode)
-
-1. Download or clone this repository
-2. Open `chrome://extensions/` (Chrome) or `brave://extensions/` (Brave)
-3. Enable **Developer mode** (toggle in top right)
-4. Click **Load unpacked** and select the `mdreader` folder
-5. Enable **Allow access to file URLs** in extension details
-
-### Set as default app for .md files (macOS)
+Ouvrir les `.md` dans le navigateur par défaut (macOS) :
 
 ```bash
 brew install duti
-duti -s com.brave.Browser md all
-# or for Chrome:
-duti -s com.google.Chrome md all
+duti -s com.brave.Browser md all      # ou com.google.Chrome
 ```
 
-## 🎯 Usage
+## Développement
 
-Simply open any `.md` file in your browser. The extension automatically renders it with:
-
-- Full-width header with document title and filename
-- Collapsible sidebar with table of contents
-- Reading progress bar
-- Theme toggle (dark/light)
-- Metadata panel (reading time, word count)
-
-## 🖨️ Printing
-
-Press `Cmd+P` (macOS) or `Ctrl+P` (Windows/Linux) to print. The extension automatically:
-
-- Switches to light mode for grayscale printing
-- Hides sidebar and UI controls
-- Formats content for A4 paper
-- Preserves header with document title and branding
-
-## 🛠️ Development
-
-```
-mdreader/
-├── manifest.json      # Extension configuration
-├── src/
-│   └── content.js     # Main script (parser + renderer + styles)
-├── icons/
-│   ├── icon48.png
-│   └── icon128.png
-└── screenshots/
+```bash
+npm install
+npm run build     # src/ -> dist/content.js
 ```
 
-### Supported Markdown
+```
+manifest.json
+src/content.js    # rendu, sommaire, live reload
+src/styles.css    # styles (polices via fonts/)
+dist/content.js   # bundle chargé par l'extension (à régénérer après modification)
+fonts/            # Newsreader, JetBrains Mono, Instrument Sans (latin)
+```
 
-- Headers (H1-H6)
-- **Bold** and *italic* text
-- [Links](url) and ![images](url)
-- Ordered and unordered lists
-- Task lists `[ ]` and `[x]`
-- `inline code` and code blocks
-- > Blockquotes
-- Horizontal rules
-- ~~Strikethrough~~
 
-## 📄 License
+## Licence
 
-MIT License - See [LICENSE](LICENSE) for details.
-
-## 🍊 Credits
-
-**mdREADER** is a project by [Abricot Labs](https://github.com/cheezelcom)
-
----
-
-Made with ☕ and curiosity
+MIT — voir [LICENSE](LICENSE). Un projet [Abricot Labs](https://github.com/cheezelcom).

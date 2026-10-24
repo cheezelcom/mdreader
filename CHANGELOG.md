@@ -1,45 +1,35 @@
 # Changelog
 
-All notable changes to mdREADER will be documented in this file.
+## [8.3.0] - 2026-10-24
+
+### Retiré
+- Mode d'impression ticket 80 mm (présent en 7.1.0) : retiré de la version publique. L'impression A4 reste disponible.
+
+## [8.0.0] - 2026-10-24
+
+### Changé
+- Parseur maison remplacé par **marked** (GFM) + **DOMPurify** + **highlight.js**, embarqués (build esbuild)
+- Polices embarquées (plus d'appel à Google Fonts)
+- Thème via `data-theme`, suit `prefers-color-scheme` par défaut ; réglages dans `chrome.storage`
+- En-tête réduit (56 px), contenu centré, sommaire plus lisible
+- Permission `activeTab` retirée
+
+### Corrigé
+- Code corrompu (titres/italiques/listes interprétés dans les blocs de code)
+- URL et mots en `snake_case` cassés par l'italique `_`
+- Sommaire : accents, titres avec formatage, `#` dans le code, titres en double
+- Listes imbriquées et numérotées ; cellules vides et alignement des tableaux
+- Injection HTML via titre/auteur/sommaire ; liens `javascript:`
+- Fichiers CRLF / BOM (frontmatter non détecté)
+
+### Ajouté
+- Coloration syntaxique, bouton Copier, ancres de titres
+- Actualisation automatique du rendu, section active dans le sommaire
+- Notes de bas de page, alertes GitHub, tableaux défilants
+- Support `.MD`, `.mdown`, `.mkd`, `localhost` et `raw.githubusercontent.com`
+
+## [7.0.0] - 2026-02-04
+- Correctifs sauts de ligne, tableaux, métadonnées DC, pied de page
 
 ## [6.0.0] - 2026-02-04
-
-### Added
-- Initial public release
-- Dark/Light theme toggle with localStorage persistence
-- Collapsible sidebar with table of contents
-- Document metadata panel (reading time, word count)
-- Print optimization for A4 grayscale output
-- Responsive design for mobile devices
-- Progress bar for reading position
-- Premium typography (Newsreader, JetBrains Mono, Instrument Sans)
-
-### Features
-- Self-contained markdown parser (no external dependencies)
-- Automatic heading ID generation for navigation
-- Smooth scroll to sections
-- macOS-style code block decorations
-- Subtle grain texture overlay
-
-## [5.0.0] - 2026-02-04 (Internal)
-- Theme switch improvements
-- Sidebar toggle functionality
-- Print mode development
-
-## [4.0.0] - 2026-02-04 (Internal)
-- Added full-width header with branding
-- Metadata dropdown panel
-- Dark/Light mode foundation
-
-## [3.0.0] - 2026-02-04 (Internal)
-- Switched to integrated markdown parser (CSP compliance)
-- Removed CDN dependency for marked.js
-
-## [2.0.0] - 2026-02-04 (Internal)
-- Added table of contents
-- Progress bar
-- Typography improvements
-
-## [1.0.0] - 2026-02-04 (Internal)
-- Initial prototype
-- Basic markdown rendering
+- Première version publique
