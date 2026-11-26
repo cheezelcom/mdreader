@@ -1,12 +1,12 @@
 {
   "name": "mdreader",
-  "version": "8.3.0",
+  "version": "8.4.0",
   "description": "mdREADER — lecteur Markdown pour Chrome/Brave",
   "private": true,
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "esbuild src/content.js --bundle --minify --format=iife --loader:.css=text --target=chrome110 --outdir=dist"
+    "build": "esbuild src/content.js src/background.js --bundle --minify --format=iife --loader:.css=text --target=chrome110 --outdir=dist"
   },
   "dependencies": {
     "dompurify": "^3.4.17",

@@ -1,5 +1,21 @@
 # Changelog
 
+## [8.4.0] - 2026-11-26
+
+### Corrigé
+- Actualisation automatique inopérante sur `file://` (lecture déplacée dans le service worker, permission `file:///*`)
+- Titre « Article », « Toc » ou « Sidebar » : lien du sommaire cassé
+- Section active du sommaire perdue après un nouveau rendu
+- Alignement des colonnes de tableau ignoré
+- Texte placé entre deux `---` sans clé traité à tort comme frontmatter
+- Nombre de mots faussé par les ancres et les boutons
+
+### Sécurité
+- Les balises `<style>` et `<form>` d'un document sont retirées
+
+### Changé
+- Plus d'actualisation automatique des documents distants
+
 ## [8.3.0] - 2026-10-24
 
 ### Retiré
