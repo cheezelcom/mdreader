@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "mdREADER",
-  "version": "8.3.0",
+  "version": "8.4.0",
   "description": "Lecteur Markdown élégant : thèmes, sommaire, coloration syntaxique, actualisation auto, impression A4.",
   "author": "Abricot Labs",
   "homepage_url": "https://github.com/cheezelcom/mdreader",
@@ -11,6 +11,12 @@
   "icons": {
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
+  },
+  "host_permissions": [
+    "file:///*"
+  ],
+  "background": {
+    "service_worker": "dist/background.js"
   },
   "content_scripts": [
     {

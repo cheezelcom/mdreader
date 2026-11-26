@@ -105,12 +105,13 @@ Object.entries({
       const kv = line.match(/^([A-Za-z_][\w.:-]*):\s*(.*?)\s*$/);
       if (kv) meta[kv[1].toLowerCase().replace(/^dc[.:_]/, '')] = kv[2].replace(/^(["'])(.*)\1$/, '$2');
     });
+    if (!Object.keys(meta).length) return { meta, body: src };
     return { meta, body: src.slice(m[0].length) };
   }
 
   function renderHtml(src) {
     const dirty = marked.parse(src, { async: false, gfm: true, breaks: !!settings.breaks });
-    return DOMPurify.sanitize(dirty, { ALLOWED_URI_REGEXP: URI_RE });
+    return DOMPurify.sanitize(dirty, { ALLOWED_URI_REGEXP: URI_RE, FORBID_TAGS: ['style', 'form'] });
   }
 
   const slugify = (s) =>
@@ -194,42 +195,42 @@ Object.entries({
   const body = mk('body');
   body.innerHTML = `
     <header class="header">
-      <button class="btn" id="sidebarToggle" title="Sommaire" aria-label="Sommaire">
+      <button class="btn" id="mdr-sidebarToggle" title="Sommaire" aria-label="Sommaire">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
       </button>
       <div class="brand"><span class="brand-name">mdREADER</span><span class="brand-sub">Abricot Labs</span></div>
       <div class="header-divider"></div>
       <div class="doc-info">
-        <div class="doc-title" id="docTitle"></div>
+        <div class="doc-title" id="mdr-docTitle"></div>
         <div class="doc-meta">
-          <span>Fichier : <span class="value" id="docFile"></span></span>
-          <span id="docAuthorWrap" hidden>Auteur : <span class="value" id="docAuthor"></span></span>
+          <span>Fichier : <span class="value" id="mdr-docFile"></span></span>
+          <span id="mdr-docAuthorWrap" hidden>Auteur : <span class="value" id="mdr-docAuthor"></span></span>
         </div>
       </div>
       <div class="header-actions">
-        <button class="meta-btn" id="metaToggle" aria-expanded="false">
+        <button class="meta-btn" id="mdr-metaToggle" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
           <span>Infos</span>
         </button>
         <div class="theme-switch">
-          <button class="theme-btn" id="darkBtn" title="Sombre" aria-label="Thème sombre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
-          <button class="theme-btn" id="lightBtn" title="Clair" aria-label="Thème clair"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+          <button class="theme-btn" id="mdr-darkBtn" title="Sombre" aria-label="Thème sombre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+          <button class="theme-btn" id="mdr-lightBtn" title="Clair" aria-label="Thème clair"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
         </div>
       </div>
     </header>
-    <div class="meta-bar" id="metaBar">
-      <div class="meta-item"><span class="meta-label">Lecture</span><span class="meta-value" id="statTime"></span></div>
-      <div class="meta-item"><span class="meta-label">Mots</span><span class="meta-value" id="statWords"></span></div>
-      <button class="chip" id="breaksChip" title="Un retour à la ligne simple devient un saut de ligne">Sauts de ligne</button>
-      <button class="chip" id="liveChip" title="Recharge le rendu quand le fichier change">Actualisation auto</button>
+    <div class="meta-bar" id="mdr-metaBar">
+      <div class="meta-item"><span class="meta-label">Lecture</span><span class="meta-value" id="mdr-statTime"></span></div>
+      <div class="meta-item"><span class="meta-label">Mots</span><span class="meta-value" id="mdr-statWords"></span></div>
+      <button class="chip" id="mdr-breaksChip" title="Un retour à la ligne simple devient un saut de ligne">Sauts de ligne</button>
+      <button class="chip" id="mdr-liveChip" title="Recharge le rendu quand le fichier change">Actualisation auto</button>
     </div>
-    <div class="progress-bar" id="progressBar"></div>
+    <div class="progress-bar" id="mdr-progressBar"></div>
     <div class="layout">
-      <aside class="sidebar" id="sidebar">
+      <aside class="sidebar" id="mdr-sidebar">
         <div class="sidebar-header"><div class="sidebar-title">Sommaire</div></div>
-        <nav class="toc" id="toc"></nav>
+        <nav class="toc" id="mdr-toc"></nav>
       </aside>
-      <main class="content"><article class="markdown-body" id="article"></article></main>
+      <main class="content"><article class="markdown-body" id="mdr-article"></article></main>
     </div>
     <footer class="footer">
       <a href="https://github.com/cheezelcom/mdreader" target="_blank" rel="noopener noreferrer">
@@ -239,7 +240,7 @@ Object.entries({
     </footer>`;
   document.documentElement.appendChild(body);
 
-  const $ = (id) => document.getElementById(id);
+  const $ = (id) => document.getElementById('mdr-' + id);
   const article = $('article');
   const toc = $('toc');
   let tocLinks = new Map();
@@ -250,6 +251,7 @@ Object.entries({
     const y = window.scrollY;
     const { meta, body: src } = parseFrontmatter(current);
     article.innerHTML = renderHtml(src);
+    const words = (article.textContent.match(/\S+/g) || []).length;
     const headings = postprocess(article);
 
     const h1 = headings.find((h) => h.level === 1);
@@ -261,12 +263,12 @@ Object.entries({
     $('docAuthor').textContent = author;
     $('docAuthorWrap').hidden = !author;
 
-    const words = (article.textContent.trim().match(/\S+/g) || []).length;
     $('statWords').textContent = words.toLocaleString('fr-FR');
     $('statTime').textContent = Math.max(1, Math.ceil(words / 200)) + ' min';
 
     toc.replaceChildren();
     tocLinks = new Map();
+    activeId = null;
     if (!headings.length) {
       toc.appendChild(mk('p', 'toc-empty', 'Aucun titre'));
     } else {
@@ -384,22 +386,35 @@ Object.entries({
 
   // --- Actualisation automatique ---
   let timer = null, busy = false, failures = 0;
+  // Chrome interdit à la page de relire un file:// : la lecture passe par le service worker.
+  // Les documents distants ne sont pas surveillés (une requête par seconde vers un serveur tiers).
+  const isFile = location.protocol === 'file:';
+  const canLive = isFile || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  async function readSource() {
+    if (isFile) {
+      const res = await chrome.runtime.sendMessage({ type: 'read-file' });
+      if (!res || !res.ok) throw new Error((res && res.error) || 'lecture impossible');
+      return res.text;
+    }
+    const r = await fetch(location.href, { cache: 'no-store' });
+    if (!r.ok) throw new Error(r.status);
+    return r.text();
+  }
   async function poll() {
     if (document.hidden || busy) return;
     busy = true;
     try {
-      const r = await fetch(location.href, { cache: 'no-store' });
-      if (!r.ok) throw new Error(r.status);
-      const t = norm(await r.text());
+      const t = norm(await readSource());
       failures = 0;
       if (t !== current) { current = t; update(); }
     } catch (e) {
       if (++failures >= 5) { stopLive(); $('liveChip').title = 'Actualisation indisponible (accès aux fichiers non autorisé ?)'; }
     } finally { busy = false; }
   }
-  function startLive() { stopLive(); failures = 0; timer = setInterval(poll, 1000); }
+  function startLive() { stopLive(); if (!canLive) return; failures = 0; timer = setInterval(poll, 1000); }
   function stopLive() { if (timer) clearInterval(timer); timer = null; }
 
+  $('liveChip').hidden = !canLive;
   update();
   if (location.hash) setTimeout(() => scrollToId(location.hash.slice(1)), 50);
   if (settings.live) startLive();

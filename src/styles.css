@@ -125,6 +125,7 @@ body.meta-open { --top: calc(var(--hh) + var(--mh)); }
 .chip.on { color: var(--accent); border-color: var(--accent); }
 .chip.on::before { background: var(--accent); }
 .chip:hover { background: var(--accent-dim); }
+.chip[hidden] { display: none; }
 
 .progress-bar {
   position: fixed; top: var(--top); left: 0; right: 0; height: 2px; background: var(--accent);
@@ -187,6 +188,8 @@ body.sidebar-hidden .content { margin-left: 0; }
 .markdown-body kbd { font-family: 'JetBrains Mono', monospace; font-size: .8em; border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: .1em .4em; background: var(--bg-secondary); }
 .markdown-body mark { background: var(--accent-dim); color: var(--text-primary); padding: 0 .2em; }
 
+.markdown-body [align=right] { text-align: right; }
+.markdown-body [align=center] { text-align: center; }
 .table-wrap { overflow-x: auto; margin: 1rem 0; }
 .markdown-body table { width: 100%; border-collapse: collapse; font-size: .9em; }
 .markdown-body th, .markdown-body td { padding: .55rem .8rem; text-align: left; border: 1px solid var(--border); vertical-align: top; }
